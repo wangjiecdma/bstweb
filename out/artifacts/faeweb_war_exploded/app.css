@@ -1,0 +1,52 @@
+/*
+ * This file is provided for application-specific style rules.
+ *
+ * By default, Maqetta includes this CSS file within HTML pages
+ * authored in Maqetta.
+ *
+ * This file is typically used to override style rules found in
+ * theme CSS files. For example, suppose the theme CSS file has:
+ *
+ * .claro .dijitButton .dijitButtonNode {
+ *		padding:2px 4px 4px 4px;
+ * }
+ *
+ * But for your application suppose you want to tighten the padding
+ * for buttons. Then, you might include the following style rule
+ * in this file (assuming that you accept Maqetta's default where
+ * id "myapp" is present on the BODY element, and assuming
+ * that you are using the "claro" theme):
+ *
+ * #myapp.claro .dijitButton .dijitButtonNode {
+ *		padding:1px 3px 3px 3px;
+ * }
+ *
+ * Because of CSS precedence rules (see [1]), the above style rule
+ * (which begins with #myapp.claro) will "win the cascade" versus 
+ * the style rule from the theme CSS file due to the use of the
+ * ID select (#myapp), which has higher specificity than the class
+ * selectors used throughout the Claro theme.
+ *
+ * [1] http://www.w3.org/TR/CSS21/cascade.html#cascade
+ */
+html,body {
+	height: 100%;
+	width: 100%;
+}
+
+
+.popAlert { display:none; position:fixed; z-index:100; left:50%; top:50%; margin:-390px 0 0 -260px; width:520px; padding-bottom:50px; background-color:#181713; -webkit-box-sizing:border-box; box-sizing:border-box; background-color:#FFFFFF ;}
+.popCnt { padding:70px 40px 30px 40px; line-height:40px; font-size:28px; text-align:center; color:#333; }
+.popBtn,
+.popBtn:hover,
+.popBtn:visited,
+.popBtn:active { display:block; width:240px; height:60px; margin:0 auto; line-height:60px; background:none; text-align:center; color:#fff;font-size:25px;border-radius: 5px;background-color:#231c84 ; }
+.popMask { display:none; position:fixed; z-index:99; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); }
+
+.btn-primary{background-color:#3c8dbc;border-color:#367fa9}
+
+
+
+/*.dijitButton {*/
+	/*background-color:#3c8dbc;border-color:#367fa9*/
+/*}*/
