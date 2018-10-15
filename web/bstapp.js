@@ -20,9 +20,12 @@ function test() {
 (function() {
     $.MsgBox = {
         Alert: function(title, msg) {
-            GenerateHtml("alert", title, msg);
-            btnOk(); //alert只是弹出消息，因此没必要用到回调函数callback
-            btnNo();
+            // GenerateHtml("alert", title, msg);
+            // btnOk(); //alert只是弹出消息，因此没必要用到回调函数callback
+            // btnNo();
+            alertDialog.set("content", msg);
+            alertDialog.show();
+
         },
         Confirm: function(title, msg, callback) {
             GenerateHtml("confirm", title, msg);

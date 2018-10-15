@@ -5,7 +5,6 @@
 require(["dojo/ready"], function(ready){
      ready(function(){
          // logic that requires that Dojo is fully initialized should go here
-
      });
 });
 

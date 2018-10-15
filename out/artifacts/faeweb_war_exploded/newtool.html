@@ -30,8 +30,17 @@
             "dijit/form/CheckBox",
             "dijit/form/DateTextBox",
             "dijit/form/TimeTextBox",
-            "dijit/form/Textarea"
+            "dijit/form/Textarea",
         ]);
+
+        require(["dijit/Dialog", "dojo/domReady!"], function(Dialog){
+            alertDialog = new Dialog({
+                title: "信息",
+                content: "Test content.",
+                style: "width: 300px"
+            });
+        });
+
     </script>
     <style>@import "themes/claro/document.css";@import "themes/claro/claro.css";@import "lib/dojo/gridx/resources/claro/Gridx.css";@import "lib/dojo/gridx/resources/claro/Gridx_rtl.css";@import "app.css";
     </style>
@@ -44,31 +53,31 @@
 <body data-maq-flow-layout="true" data-maq-comptype="desktop" class="claro" data-maq-ws="collapse" data-maq-appstates="{}" id="myapp">
 <div data-dojo-type="dijit/layout/BorderContainer" design="sidebar" persist="false" gutters="true" style="min-width: 1em; min-height: 1px; z-index: 0; width: 100%; height: 100%;">
 
-    <div data-dojo-type="dijit/layout/ContentPane" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" region="left" splitter="true" maxSize="Infinity" doLayout="false" style="width: 182px;">
+    <div data-dojo-type="dijit/layout/ContentPane" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" region="left" splitter="true" maxSize="Infinity" doLayout="false" style="width: 210px;">
         <label style="position: absolute; z-index: 900; left: 10.96875px; top: 34px;">
             在线设备</label>
-        <select multiple="true" data-dojo-type="dijit/form/MultiSelect" id="device_list" intermediateChanges="false" style="height: auto; bottom: 10px; position: absolute; z-index: 900; width: 183px; left: 10.96875px; top: 117px;">
+        <select multiple="true" data-dojo-type="dijit/form/MultiSelect" id="device_list" intermediateChanges="false" style="height: auto; bottom: 10px; position: absolute; z-index: 900; left: 10.96875px; top: 117px; right: 10px; width: 204px;">
 
         </select>
         <input type="text" data-dojo-type="dijit/form/TextBox" id="fillter" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" style="position: absolute; z-index: 900; left: 10.96875px; top: 70.4140625px; width: 119px;" placeHolder="搜索"></input>
-        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="刷新" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 145.98125px; top: 66.1390625px;" onclick="onClickUpdate()"></input>
+        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="刷新" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 168.98125px; top: 66.1390625px;" onclick="onClickUpdate()"></input>
 
     </div>
     <div data-dojo-type="dijit/layout/ContentPane" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" region="center" splitter="false" maxSize="Infinity" doLayout="false"><span data-dojo-type="dijit/layout/TabContainer" style="min-width: 1em; min-height: 1em; width: 100%; height: 100%;" controllerWidget="dijit.layout.TabController">
 <div data-dojo-type="dijit/layout/ContentPane" title="实时显示" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" selected="true" closable="false" doLayout="false">
        <div data-dojo-type="dijit/layout/ContentPane" id="device_content" title="Pane" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" style="border: 1px solid lightgrey; width: 500px; height: 580px; position: absolute; left: 12px; top: 89px; z-index: 0; color: #eee3e3;"></div>
-       <label style="font-size: 40px; position: absolute; z-index: 900; left: 218px; top: 222.6875px; color: #0a0af1;">
+       <label id="current_floor" style="font-size: 120px; position: absolute; z-index: 900; left: 170px; top: 170px; color: #0a0af1;">
 
-         15A</label>
-       <label style="font-size: 40px; position: absolute; z-index: 900; left: 64px; top: 382px; color: #0a11f1;">
+         1</label>
+       <label id="register_floor" style="font-size: 40px; position: absolute; z-index: 900; left: 64px; top: 382px; color: #0a11f1;">
 
-         已登记：15,16,20,1</label>
-       <label style="font-size: 40px; color: red; position: absolute; z-index: 900; left: 380px; top: 220.6875px;">
+         已登记:</label>
+       <label id="status_label" style="font-size: 30px; color: red; position: absolute; z-index: 900; left: 420px; top: 220.6875px;">
 
 
-   正常</label>
+   </label>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="同步数据" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 75px; top: 45px;" onclick="onClickSyncData()"></input>
-    <!--<img id="down_image" data-dojo-type="clipart/ArrowDown" style="width: 80px; height: 80px; position: absolute; z-index: 900; left: 54px; top: 206.703125px;"></img>--><!--<img id="up_image" data-dojo-type="clipart/ArrowUp" style="width: 80px; height: 80px; position: absolute; z-index: 900; left: 54px; top: 206.703125px;"></img>--><img id="arrow_image" style="width: 60px; height: 80px; position: absolute; z-index: 900; left: 60px; top: 206.703125px;"></img>
+    <!--<img id="down_image" data-dojo-type="clipart/ArrowDown" style="width: 80px; height: 80px; position: absolute; z-index: 900; left: 54px; top: 206.703125px;"></img>--><!--<img id="up_image" data-dojo-type="clipart/ArrowUp" style="width: 80px; height: 80px; position: absolute; z-index: 900; left: 54px; top: 206.703125px;"></img>--><img id="arrow_image" src="img/none.png" style="width: 60px; height: 80px; position: absolute; z-index: 900; left: 60px; top: 206.703125px;"></img>
        <select data-dojo-type="dijit/form/ComboBox" id="synctime" value="5分钟" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 105px; position: absolute; z-index: 900; left: 202.02499999999998px; top: 49.306250000000006px;">
          <option value="5">
 
@@ -107,10 +116,12 @@
        <input id="file" type="file" style="position: absolute; z-index: 900; left: 36px; top: 17.9140625px;"></input>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="上传资源" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 850.0125px; top: 14.435937500000001px;" onclick="onClickUploadFile()"></input>
 <span data-dojo-type="dijit/ProgressBar" indeterminate="false" style="height: auto; position: absolute; z-index: 900; left: 36px; top: 56px; width: 882px;"></span>
-       <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="APK升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940.1875px; top: 257.9375px;"></input>
-       <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="OTA升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 939.984375px; top: 203px;"></input>
-       <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="ＵＩ升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940px; top: 310px;"></input>
-       <select multiple="true" data-dojo-type="dijit/form/MultiSelect" id="resource_list" intermediateChanges="false" style="height: auto; position: absolute; z-index: 900; left: 39px; top: 100px; bottom: 10px; width: 886px;">
+       <input onclick="onUpdateAPK()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="APK升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940.1875px; top: 257.9375px;"></input>
+       <input onclick="onUpdateOTA()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="OTA升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 939.984375px; top: 203px;"></input>
+       <input onclick="onUpdateResource()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="ＵＩ升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940px; top: 310px;"></input>
+         <input onclick="onUpdateVideo()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="Video升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940px; top: 360px;"></input>
+
+         <select multiple="true" data-dojo-type="dijit/form/MultiSelect" id="resource_list" intermediateChanges="false" style="height: auto; position: absolute; z-index: 900; left: 39px; top: 100px; bottom: 10px; width: 886px;">
 
 </select>
        <input type="text" data-dojo-type="dijit/form/TextBox" id="resource_name" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="资源名称" style="width: 80px; position: absolute; z-index: 900; left: 637px; top: 18.703125px;"></input>
@@ -183,7 +194,7 @@
        <label style="position: absolute; z-index: 900; left: 479.3125px; top: 218px;">
 
          显示方向</label>
-       <select data-dojo-type="dijit/form/ComboBox" id="set_deriction" value="0" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 550px; top: 215.5px;">
+       <select  id="set_deriction" value="0" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 550px; top: 215.5px;">
          <option value="0">
 
            0</option>
@@ -199,9 +210,9 @@
        </select>
        <label style="position: absolute; z-index: 900; left: 182px; top: 217px;">
 
-         网络自动时间</label>
-       <input type="text" data-dojo-type="dijit/form/DateTextBox" id="set_date" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" rangeMessage="此值超出范围。" style="position: absolute; z-index: 900; width: 98px; left: 254px; top: 272px;"></input>
-       <input type="text" data-dojo-type="dijit/form/TimeTextBox" id="set_time" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" rangeMessage="此值超出范围。" style="position: absolute; z-index: 900; left: 551.5px; top: 268px;"></input>
+         手动设置时间</label>
+       <input disabled="true" type="text" data-dojo-type="dijit/form/DateTextBox" id="set_date" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" rangeMessage="此值超出范围。" style="position: absolute; z-index: 900; width: 98px; left: 254px; top: 272px;"></input>
+       <input disabled="true" type="text" data-dojo-type="dijit/form/TimeTextBox" id="set_time" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" rangeMessage="此值超出范围。" style="position: absolute; z-index: 900; left: 551.5px; top: 268px;"></input>
        <label style="position: absolute; z-index: 900; left: 182px; top: 274.5px;">
 
          日期</label>
@@ -271,9 +282,6 @@
 
          视频音量</label>
        <select data-dojo-type="dijit/form/ComboBox" id="set_idle_light" value="0" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 552.3125px; top: 342px;">
-         <option value="0">
-
-           0</option>
          <option value="1">
 
            1</option>
@@ -332,7 +340,7 @@
        </select>
        <label style="position: absolute; z-index: 900; left: 182px; top: 449.5px;">
        待机时间</label>
-       <select data-dojo-type="dijit/form/ComboBox" value="5分钟" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 252.6875px; top: 447px;">
+       <select  id="set_standby" data-dojo-type="dijit/form/ComboBox" value="5分钟" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 252.6875px; top: 447px;">
          <option value="5分钟" selected="true">
            5分钟</option>
          <option value="15分钟">

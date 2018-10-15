@@ -1,7 +1,9 @@
 	
 	var mapVersion  = {};
+    var mapSystemVersion ={};
 	var mapDevice = {};
-	var server_id = "20000"
+	date = new Date();
+	var server_id = "20000_"+date.getMinutes() +date.getSeconds();
 	var client = new Paho.MQTT.Client("192.168.168.166",61623 , server_id);//建立客户端实例
         client.connect({onSuccess:onConnect ,
         					  userName:"admin",
@@ -10,6 +12,8 @@
 	        console.log("onConnected");
 	        client.subscribe("counter");//订阅主题
 			client.subscribe(server_id);
+            client.subscribe("bst_fae");
+
         }
         client.onConnectionLost = onConnectionLost;//注册连接断开处理事件
         client.onMessageArrived = onMessageArrived;//注册消息接收处理事件
@@ -26,6 +30,8 @@
 		  		mapVersion[item.id] = item.version;
 		  		var timestamp = (new Date()).getTime()/1000;
 		  		mapDevice[item.id] = timestamp;
+		  		mapSystemVersion[item.id]=item.version_system;
+
 		  }else if(message.destinationName ==server_id ){
 		  		
 		  		item = JSON.parse(message.payloadString);
@@ -40,10 +46,12 @@
 		  				$("#screen_time").html("截屏时间:"+ time);
 
 		  			}else if(item.cmd_type == "result_syncdata"){
-
-                    }else if(item.cmd_type == "result_setting"){
-		  				updateSettting(item.setting);
-					}
+		  				updateStatus(item);
+                    }else if(item.cmd_type == "result_readsetting"){
+		  				updateSettting(item);
+					}else if(item.cmd_type == "result_writesetting"){
+                        $.MsgBox.Alert("消息", "设置参数成功!");
+                    }
 		  		}
 		  		
 		  }
@@ -142,8 +150,8 @@ function onClickSyncData(){
 	}
 	console.log("onClickSyncData : "+Device_ID);
 	
-	// for test 
-	var  data = { bst_fae:true , arrow:'up',current:'42',status:'超载' , register:'1,2,3,4,5'};
+	//for test
+	var  data = { bst_fae:true , arrow:'up',current:'42',status:'超载' , register:[1,2,4,5]};
 	index =  rnd(0,4);
 
 	if (index ==0){
@@ -165,8 +173,9 @@ function updateStatus(item ){
 		  	var register = item.register;
 		  			
 		  	if(arrow == "up"){
-		  			$('#arrow_image').attr("src","img/up.png");
-		  	}else if(arrow == 'down'){
+		  		$('#arrow_image').attr("src","img/up.png");
+
+            }else if(arrow == 'down'){
                 $('#arrow_image').attr("src","img/down.png");
 
             }else if(arrow == 'downrun'){
@@ -174,15 +183,19 @@ function updateStatus(item ){
 
             }else if(arrow == 'uprun'){
                 $('#arrow_image').attr("src","img/uprun.gif");
-
             }
             else {
-		  			$('#up_image').hide();	
-		  			$('#down_image').hide();	
+                $('#arrow_image').attr("src","img/none.png");
 		  	}
-		  	$("#current_floor").html(''+current);
-		  	$("#register_floor").html('已登记：'+register);
-		  	$("#status_label").html(status);
+		  	if(current != undefined){
+                $("#current_floor").html(''+current);
+			}
+    		if(register != undefined){
+                $("#register_floor").html('已登记：'+register);
+			}
+    		if(status != undefined){
+        		$("#status_label").html(status);
+    		}
 }
 
 function getSyncData() {
@@ -286,7 +299,106 @@ function addResource(name , url, type) {
 }
 
 function onUpdateResource() {
-    updateResourceList();
+    //updateResourceList();
+
+    var value = $("#resource_list").val();
+    if(value.length  != 1){
+        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
+        return ;
+    }
+
+    var device = $("#device_list").val();
+
+    if (device.length ==0){
+        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
+		return;
+    }
+
+
+    var  data = {
+        bst_fae: true,
+        msg_type: "bst_fae",
+        cmd_type: "updateui",
+        server_id: server_id,
+        download_url:value[0]};
+
+    var jsonstr = JSON.stringify(data);
+
+    for (index in device){
+        sendMqttMessage(device[index], jsonstr);
+        console.log("update resource for "+device[index] +"    send data :"+jsonstr);
+
+    }
+}
+function  onUpdateAPK(){
+
+    var value = $("#resource_list").val();
+    if(value.length  != 1){
+        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
+		return ;
+    }
+
+      var  data = {
+          bst_fae: true,
+          msg_type: "bst_fae",
+          cmd_type: "updateapk",
+          server_id: server_id,
+		  download_url:value[0]};
+
+    sendMqttMessage("bst_fae", JSON.stringify(data));
+    console.log("onUpdateAPK : "+data);
+}
+
+function  onUpdateVideo()
+{
+
+    var value = $("#resource_list").val();
+    if(value.length  != 1){
+        $.MsgBox.Alert("消息", "请选择一个视频资源!");
+        return ;
+    }
+
+    var device = $("#device_list").val();
+
+    if (device.length ==0){
+        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
+        return;
+    }
+
+
+    var  data = {
+        bst_fae: true,
+        msg_type: "bst_fae",
+        cmd_type: "updatevideo",
+        server_id: server_id,
+        download_url:value[0]};
+
+    var jsonstr = JSON.stringify(data);
+    for (index in device){
+        sendMqttMessage(device[index], jsonstr);
+        console.log("update video for "+device[index] +"    send data :"+jsonstr);
+    }
+}
+
+
+function onUpdateOTA(){
+
+    var value = $("#resource_list").val();
+    if(value.length  != 1){
+        $.MsgBox.Alert("消息", "请选择一个OTA资源!");
+        return ;
+    }
+
+    var  data = {
+        bst_fae: true,
+        msg_type: "bst_fae",
+        cmd_type: "updateota",
+        server_id: server_id,
+        download_url:value[0]};
+
+    sendMqttMessage("bst_fae", JSON.stringify(data));
+    console.log("onUpdateOTA : "+data);
+
 }
 
 
@@ -405,7 +517,6 @@ function downloadData() {
 }
 function downloadError () {
     downloadDeviceFile("error");
-
 }
 
 function deleteError () {
@@ -415,12 +526,12 @@ function deleteError () {
 function onClickNetTime() {
 
     	if(dijit.byId("set_autotime").checked){
-    		dijit.byId("set_date").disabled = true;
-            dijit.byId("set_time").disabled = true;
+    		dijit.byId("set_date").disabled = false;
+            dijit.byId("set_time").disabled = false;
 
         }else{
-            dijit.byId("set_date").disabled = false;
-            dijit.byId("set_time").disabled = false;
+            dijit.byId("set_date").disabled = true;
+            dijit.byId("set_time").disabled = true;
 		}
 
     	console.log("net time :"+dijit.byId("set_autotime").checked);
@@ -442,25 +553,135 @@ function loadSetting ()
 
     var  data = {   bst_fae:true,
         msg_type:"bst_fae",
-        cmd_type: "setting",
+        cmd_type: "readsetting",
         server_id:server_id} ;
     sendMqttMessage(Device_ID, JSON.stringify(data));
     console.log("loadSetting : "+Device_ID);
 
 }
-function updateSettting(data) {
+
+function setSelect(view, value)
+{
+	var id = "#"+view;
+	var option = "option[value = '" + value +"']";
+    $(id).find(option).attr("selected","selected");
+}
+
+
+function updateSettting(data)
+{
+
+    //方向
+    $("#set_deriction").val(data.direction);
+    //分辨率
+    $("#set_res").val(data.resolution);
+
+
+    if(data.language == "ch"){
+        $("#set_lan").val("中文");
+    }else{
+        $("#set_lan").val("英文");
+    }
+
+    //正常亮度
+    $("#set_nomal_light").val(data.normalLight);
+    //待机亮度
+    $("#set_idle_light").val(data.idleLight);
+
+    //报站音量
+    $("#set_come_voice").val(data.reportingVolume);
+    //视频音量
+    $("#set_video_voice").val(data.videoVolume);
+
+    //待机时间
+    if(data.standbyTime<=5){
+        $("#set_standby").val("5分钟");
+    }else if(data.standbyTime<=15){
+        $("#set_standby").val("15分钟");
+    }else if(data.standbyTime<=30){
+        $("#set_standby").val("30分钟");
+    }else if(data.standbyTime<=45){
+        $("#set_standby").val("45分钟");
+    }else {
+        $("#set_standby").val("60分钟");
+    }
+
+   // $("#set_standby").val("60分钟");
+
+
+    //网络自动校准时间
+    if(data.autotime){
+        dijit.byId("set_date").disabled = true;
+        dijit.byId("set_time").disabled = true;
+    }else{
+        dijit.byId("set_date").disabled = false;
+        dijit.byId("set_time").disabled = false;
+    }
+    dijit.byId('set_autotime').attr('checked',!data.autotime);
+
+    $("#set_welcome").html ( data.welcome);
+
+    $("#set_device_id").html("设备ID:"+data.app_id);
+
+    $("#set_version").html("软件版本号:"+ mapVersion[data.app_id] +"    "+mapSystemVersion[data.app_id]);
+
+
+
 
 }
 
 function saveSetting()
 {
-	data = {
+
+    list = $("#device_list ").val();
+    if(list.length != 1){
+        $.MsgBox.Alert("消息", "请选择一个设备!");
+        return;
+    }
+    Device_ID = list[0];
+
+
+    var date = new Date();
+    var datestr = $("#set_date").val();
+
+    if (datestr==""){
+        datestr=""+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+    }
+    var timestr = $("#set_time").val();
+
+    if(timestr==""){
+        timestr=""+date.getHours()+":"+date.getMinutes();
+    }else{
+
+        if(timestr.indexOf("上午")==0){
+            timestr = timestr.replace("上午","");
+        }else{
+            timestr = timestr.replace("下午","");
+            var value = timestr.split(":");
+            var hour=  parseInt(value[0]);
+            if(hour == 12){
+                hour = 12;
+            }else {
+                hour = hour + 12;
+            }
+            timestr = ""+hour+":"+value[1];
+        }
+
+    }
+
+
+
+	var data = {
+        bst_fae:true,
+        msg_type:"bst_fae",
+        cmd_type: "writesetting",
+        server_id:server_id,
         language:getValue("set_lan")=="中文"?"ch":"en",
         resolution:getValue("set_res"),
         direction:getValue("set_deriction"),
-        auto_time:dijit.byId("set_autotime").checked,
-        dateTime:getValue("set_date"),
-		clockTime:getValue("set_time"),
+        auto_time:!(dijit.byId("set_autotime").checked),
+        dateTime:datestr,
+		clockTime:timestr,
         normalLight:getValue("set_nomal_light"),
         idleLight:getValue("set_idle_light"),
         reportingVolume:getValue("set_come_voice"),
@@ -469,6 +690,11 @@ function saveSetting()
 		welcome:getValue("set_welcome")
     };
 
-	console.log("save settting :"+data);
+
+
+
+	console.log("save settting :"+JSON.stringify(data));
+    sendMqttMessage(Device_ID, JSON.stringify(data));
+
 }
 
