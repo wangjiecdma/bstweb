@@ -1,4 +1,20 @@
-	
+document.addEventListener('readystatechange',function(){
+    if(document.readyState=="interactive"){
+        var pic = document.getElementById("img");
+        var divmanage=document.getElementById("divmanage");
+        pic.style.display="block";
+        divmanage.style.display="none";
+    }
+    if(document.readyState=="complete"){
+        var pic = document.getElementById("img");
+        var divmanage=document.getElementById("divmanage");
+        pic.style.display="none";
+        divmanage.style.display="block";
+    }
+})
+document.addEventListener('DOMContentLoaded',function(){
+
+})
 	var mapVersion  = {};
     var mapSystemVersion ={};
 	var mapDevice = {};
@@ -13,7 +29,6 @@
 	        client.subscribe("counter");//订阅主题
 			client.subscribe(server_id);
             client.subscribe("bst_fae");
-
         }
         client.onConnectionLost = onConnectionLost;//注册连接断开处理事件
         client.onMessageArrived = onMessageArrived;//注册消息接收处理事件
@@ -50,7 +65,8 @@
                     }else if(item.cmd_type == "result_readsetting"){
 		  				updateSettting(item);
 					}else if(item.cmd_type == "result_writesetting"){
-                        $.MsgBox.Alert("消息", "设置参数成功!");
+					layer.alert("设置参数成功");
+                    
                     }
 		  		}
 		  		
@@ -135,7 +151,7 @@ function rnd(n, m){
 function onClickSyncData(){
 	var data = $("#device_list ").val();
 	if(data.length != 1){
-		 $.MsgBox.Alert("消息", "请选择一个设备!");
+		 layer.alert("请选择一个设备");
 		return;
 	}
 	Device_ID = data[0];
@@ -199,8 +215,6 @@ function updateStatus(item ){
 }
 
 function getSyncData() {
-
-		
 	if(TimeCounter > 0){
 		var  data = {   bst_fae:true,
 						msg_type:"bst_fae",
@@ -225,13 +239,13 @@ function onClickUploadFile() {
         //alert("请先选择资源文件!");
         //window.alert("欢迎访问我们的 Web 页！");
         //window.parent.alert("请先选择资源文件!");
-        $.MsgBox.Alert("消息", "请先选择资源文件!");
+        layer.alert("请选择资源文件");
         return ;
 	}
 	
 	name =$('#resource_name').val();
 	if(name.length ==0 ){
-			$.MsgBox.Alert("消息", "资源名称不能为空!");
+			layer.alert("资源名称不能为空");
 			return ;
 	}
 
@@ -243,7 +257,7 @@ function onClickUploadFile() {
 	
 	var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
                if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
-                   alert("请选择资源文件");
+                   layer.alert("请选择资源文件");
                    return;
                }
       var formData = new FormData();
@@ -267,7 +281,7 @@ function onClickUploadFile() {
             	fileurl =  fileurl.replace("rtc/uploadche-tomcat-8.5.31/webapps/ROOT/","");
                 addResource(resource_name,fileurl,resource_type);
             } else {
-                   $.MsgBox.Alert("消息", "上传文件失败!");
+                   layer.alert("上传文件失败");
             }
         }
     });
@@ -287,8 +301,7 @@ function addResource(name , url, type) {
         handleAs: "text",
         load: function(data){
             console.log("get response :"+data);
-            $.MsgBox.Alert("消息", "上传文件成功!");
-
+            layer.alert("上传文件成功");
             updateResourceList();
         },
         error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
@@ -303,14 +316,15 @@ function onUpdateResource() {
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
+    
+	layer.alert("请选择一个APK资源");
         return ;
     }
 
     var device = $("#device_list").val();
 
     if (device.length ==0){
-        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
+    layer.alert("请在设备部列表中选择需要升级的设备(可多选)");
 		return;
     }
 
@@ -334,7 +348,7 @@ function  onUpdateAPK(){
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
+    layer.alert("请选择一个APK资源");
 		return ;
     }
 
@@ -354,14 +368,14 @@ function  onUpdateVideo()
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个视频资源!");
+    layer.alert("请选择一个视频资源");
         return ;
     }
 
     var device = $("#device_list").val();
 
     if (device.length ==0){
-        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
+    layer.alert("请在设备部列表中选择需要升级的设备(可多选)");
         return;
     }
 
@@ -385,7 +399,7 @@ function onUpdateOTA(){
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个OTA资源!");
+    layer.alert("请选择一个OTA资源");
         return ;
     }
 
@@ -423,23 +437,18 @@ function updateResourceList() {
         handleAs: "text",
         load: function(data){
             console.log("get response :"+data);
-
             var obj = JSON.parse(data);
             console.log("get resource  list ok :"+obj.data);
             sel = document.getElementById('resource_list');
             dojo.empty("resource_list");
-
+            var strhtml = [];
             for (index in obj.data){
             	item = obj.data[index];
-
-
-                var c = dojo.doc.createElement('option');
-                str = item.date + "  |  "+item.type + "  |  "+item.name + "  |  "+item.url;
-                c.innerHTML =str;
-                c.value =item.url ;
-                sel.appendChild(c);
+                let tr = "<tr><td><input type='checkbox' onclick='test(this);'/></td><td>" + item.date + "</td>" + "<td>" + item.type + "</td>" + "<td>" + item.name + "</td>" + "<td>" + item.url + "</td></tr>";
+                strhtml.push(tr);
+                console.log("tr："+tr);
+                document.getElementById('resource_list').innerHTML = strhtml.join('');
 			}
-
         },
         error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
             console.log("get resource list error  ");
@@ -448,16 +457,36 @@ function updateResourceList() {
     dojo.xhrPost(xhrArgs);
 }
 
-function deleteResource() {
-    var value = $("#resource_list").val();
+var str=new Array();
 
-    if (value.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个资源文件!");
-        return ;
+function test(o) {
+    if(str.length>0){
+        str=new Array();
     }
-    $.MsgBox.Confirm("消息","确认删除资源！",function(){
+    if (!o.checked) {
+        return;
+    }
+    var tr = o.parentNode.parentNode;
+    var tds = tr.cells;
+    var d = "";
+    for (var i = 0; i < tds.length; i++) {
+        if (i < 5) {
+            d = d + tds[i].innerHTML + "|";
+        }
+    }
+    var b=d.substring(d.indexOf("|")+1,d.length-1);
+    str = b.split('|');
+}
+
+function deleteResource() {
+    if (str.length != 4) {
+        layer.alert("请选择一条数据");
+        return;
+    }
+    layer.confirm("确认删除资源？",function (i) {
+        layer.close(i);
         deleteResourceFunc();
-	});
+    })
 }
 
 function deleteResourceFunc(){
@@ -466,7 +495,7 @@ function deleteResourceFunc(){
 
     var data = {
         cmd:"delete",
-		url:value[0]
+		url:value[3]
     };
  var xhrArgs = {      
  			url: "resource",
@@ -479,7 +508,7 @@ function deleteResourceFunc(){
  			},      
  			error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.        
  				console.log("post error ");
-                $.MsgBox.Alert("消息", "删除失败!");
+                layer.alert("删除失败");
  			}    
  			}  
  			
@@ -495,7 +524,7 @@ function downloadLOG()
 function downloadDeviceFile(type) {
     array =  $("#device_list ").val();
     if(array.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个设备!");
+        layer.alert("请选择一个设备");
         return;
     }
     client_id = array[0];
@@ -546,7 +575,7 @@ function loadSetting ()
 
 	list = $("#device_list ").val();
     if(list.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个设备!");
+        layer.alert("请选择一个设备");
         return;
     }
     Device_ID = list[0];
@@ -635,7 +664,7 @@ function saveSetting()
 
     list = $("#device_list ").val();
     if(list.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个设备!");
+        layer.alert("请选择一个设备");
         return;
     }
     Device_ID = list[0];
