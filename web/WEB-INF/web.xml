@@ -13,4 +13,21 @@
         <url-pattern>/resource</url-pattern>
     </servlet-mapping>
 
+
+
+
+    <servlet>
+        <servlet-name>uploadProcessorServlet</servlet-name>
+        <servlet-class>com.shbst.faeweb.UploadProcessorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadProcessorServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>uploadProcessorServlet</servlet-name>
+        <url-pattern>/progress</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

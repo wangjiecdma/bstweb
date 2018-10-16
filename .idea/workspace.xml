@@ -7,25 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8f4cff0-5932-4f2f-861d-f1c8e269def9" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_servlet_api_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/javax_servlet_api_3_1_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/bstapp.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/bstapp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/faetool.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/file1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/WEB-INF/classes/com/shbst/faeweb/ServletUploadFile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/mqtt.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/mqtt.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/newtool.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/newtool.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/system.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/faeweb_war_exploded/tools.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/bstapp.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/bstapp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/faetool.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/file1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FAEWeb/com/shbst/faeweb/ServletUploadFile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/shbst/faeweb/ServletUploadFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/mqtt.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/mqtt.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/newtool.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/newtool.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/system.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/tools.html" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,20 +29,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mqtt.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mqtt.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/mqtt.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="701" column="14" selection-start-line="701" selection-start-column="4" selection-end-line="701" selection-end-column="14" />
+            <state relative-caret-position="27">
+              <caret line="674" column="27" lean-forward="true" selection-start-line="674" selection-start-column="27" selection-end-line="674" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResourceServlet.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bstapp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/bstapp.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3691">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResourceServlet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/shbst/faeweb/ResourceServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="64" column="17" lean-forward="true" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
+            <state relative-caret-position="125">
+              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -58,8 +71,8 @@
       <file leaf-file-name="newtool.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/newtool.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8243">
-              <caret line="356" column="6" lean-forward="true" selection-start-line="356" selection-start-column="6" selection-end-line="356" selection-end-column="6" />
+            <state relative-caret-position="362">
+              <caret line="110" column="28" lean-forward="true" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -74,12 +87,19 @@
                 <element signature="n#style#0;n#input#0;n#div#0;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#0;n#div#0;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#2;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#3;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#4;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#5;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#1;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#1;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#2;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#3;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#4;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#1;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#2;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#1;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -87,6 +107,7 @@
                 <element signature="n#style#0;n#textarea#0;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#label#11;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#label#12;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#6;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#7;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -97,36 +118,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>updateResourceList</find>
-      <find>15A</find>
-      <find>当前楼层</find>
-      <find>current_floor</find>
-      <find>arrow_image</find>
-      <find>登记</find>
-      <find>updateSettting</find>
-      <find>ComboBoxMixin</find>
-      <find>ota升级</find>
-      <find>OTA升级</find>
-      <find>onUpdateResource</find>
-      <find>onupadteres</find>
-      <find>待机亮度</find>
-      <find>ComboBox</find>
-      <find>set_deriction</find>
-      <find>checkbox</find>
-      <find>updateota</find>
-      <find>欢迎语</find>
-      <find>set_autotime</find>
-      <find>set_welcome</find>
-      <find>innerhtml</find>
-      <find>mapVersion</find>
-      <find>网络自动时间</find>
-      <find>set_date</find>
-      <find>clockTime</find>
       <find>set_time</find>
       <find>升级</find>
       <find>updateError</find>
+      <find>显示方向</find>
+      <find>log_list</find>
+      <find>异常详情</find>
       <find>disable</find>
+      <find>replas</find>
+      <find>repl</find>
+      <find>updateStatus</find>
+      <find>auto_time</find>
+      <find>autoTime</find>
+      <find>set_standby_time</find>
+      <find>set_video_voice</find>
       <find>设备ID</find>
+      <find>ServletFileUpload</find>
+      <find>picUrl</find>
+      <find>error_list</find>
+      <find>upload</find>
+      <find>time</find>
+      <find>FILE_UPLOAD_URIFILE_UPLOAD_URI</find>
+      <find>localhost</find>
+      <find>show()</find>
+      <find>updateResourceList</find>
+      <find>sendmqttmessage</find>
+      <find>progressBar</find>
+      <find>/upload</find>
+      <find>10.200.33.131</find>
+      <find>FILE_UPLOAD_URI</find>
+      <find>result_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -147,6 +168,9 @@
         <option value="$PROJECT_DIR$/web/mqtt.js" />
         <option value="$PROJECT_DIR$/web/newtool.html" />
         <option value="$PROJECT_DIR$/web/mqtt.js" />
+        <option value="$PROJECT_DIR$/src/com/shbst/faeweb/ServletUploadFile.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/com/shbst/faeweb/UploadProcessorServlet.java" />
         <option value="$PROJECT_DIR$/web/newtool.html" />
         <option value="$PROJECT_DIR$/web/mqtt.js" />
       </list>
@@ -175,8 +199,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="78" />
-    <option name="y" value="78" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1582" />
     <option name="height" value="702" />
   </component>
@@ -224,6 +248,12 @@
             </path>
             <path>
               <item name="faeweb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FAEWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="faeweb" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -239,7 +269,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/development/apache-maven-3.3.9-bin/repository/com/alibaba/fastjson/1.2.21/fastjson-1.2.21.jar!/" />
+    <property name="last_opened_file_path" value="D:/development/apache-maven-3.3.9-bin/repository/commons-io/commons-io/2.5/commons-io-2.5.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -398,15 +428,15 @@
       <workItem from="1539152729292" duration="18348000" />
       <workItem from="1539224029462" duration="34592000" />
       <workItem from="1539315607278" duration="17835000" />
-      <workItem from="1539561917491" duration="8150000" />
+      <workItem from="1539561917491" duration="34798000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78925000" />
+    <option name="totallyTimeSpent" value="105573000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -420,17 +450,17 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3995749" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.27765957" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32943678" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3287234" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.27021277" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.17553191" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25208333" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25208333" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32943678" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -450,31 +480,30 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/shbst/faeweb/ResourceServlet.java</url>
+          <line>57</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/shbst/faeweb/UploadProcessorServlet.java</url>
+          <line>89</line>
+          <properties />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/shbst/faeweb/UploadProcessorServlet.java</url>
+          <line>126</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/themes/dijit/icons/images/loadingAnimation_rtl.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/themes/dijit/icons/commonIcons.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/themes/dijit/icons/commonIcons_rtl.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/themes/dijit/icons/editorIcons_rtl.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/themes/dijit/themes/claro/images/standardGradient.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/themes/dijit/themes/claro/images/standardGradient.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/themes/dijit/themes/claro/images/tooltip8bit.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/themes/dijit/themes/claro/images/treeExpandImages.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -542,31 +571,7 @@
     <entry file="file://$PROJECT_DIR$/web/themes/dijit/themes/claro/images/calendar.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shbst/faeweb/ServletUploadFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/faetool.html" />
-    <entry file="file://$PROJECT_DIR$/web/bstapp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/lib/dojo/dojox/editor/plugins/SafePaste.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="975">
@@ -629,17 +634,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/mqtt.js">
+    <entry file="file://$PROJECT_DIR$/src/com/shbst/faeweb/ServletUploadFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="701" column="14" selection-start-line="701" selection-start-column="4" selection-end-line="701" selection-end-column="14" />
+        <state relative-caret-position="100">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/development/apache-maven-3.3.9-bin/repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1.jar!/org/apache/commons/fileupload/FileItem.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/development/apache-maven-3.3.9-bin/repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1.jar!/org/apache/commons/fileupload/servlet/ServletFileUpload.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="28" column="28" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/development/apache-maven-3.3.9-bin/repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1.jar!/org/apache/commons/fileupload/FileUploadBase.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="381" column="26" selection-start-line="381" selection-start-column="16" selection-end-line="381" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/development/apache-maven-3.3.9-bin/repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1.jar!/org/apache/commons/fileupload/ProgressListener.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="28" column="30" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shbst/faeweb/UploadProcessorServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-978">
+          <caret line="83" column="20" lean-forward="true" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/util/logging/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="490" column="25" selection-start-line="490" selection-start-column="25" selection-end-line="490" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bstapp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3691">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shbst/faeweb/ResourceServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/newtool.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8243">
-          <caret line="356" column="6" lean-forward="true" selection-start-line="356" selection-start-column="6" selection-end-line="356" selection-end-column="6" />
+        <state relative-caret-position="362">
+          <caret line="110" column="28" lean-forward="true" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -654,12 +735,19 @@
             <element signature="n#style#0;n#input#0;n#div#0;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#0;n#div#0;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#2;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#3;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#4;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#5;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#1;n#div#1;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#1;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#2;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#3;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#4;n#div#2;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#1;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#0;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#2;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -667,15 +755,16 @@
             <element signature="n#style#0;n#textarea#0;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#label#11;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#label#12;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#6;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#7;n#div#3;n#span#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shbst/faeweb/ResourceServlet.java">
+    <entry file="file://$PROJECT_DIR$/web/mqtt.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="64" column="17" lean-forward="true" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
+        <state relative-caret-position="27">
+          <caret line="674" column="27" lean-forward="true" selection-start-line="674" selection-start-column="27" selection-end-line="674" selection-end-column="27" />
         </state>
       </provider>
     </entry>

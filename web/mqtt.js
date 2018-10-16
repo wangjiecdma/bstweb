@@ -1,20 +1,4 @@
-document.addEventListener('readystatechange',function(){
-    if(document.readyState=="interactive"){
-        var pic = document.getElementById("img");
-        var divmanage=document.getElementById("divmanage");
-        pic.style.display="block";
-        divmanage.style.display="none";
-    }
-    if(document.readyState=="complete"){
-        var pic = document.getElementById("img");
-        var divmanage=document.getElementById("divmanage");
-        pic.style.display="none";
-        divmanage.style.display="block";
-    }
-})
-document.addEventListener('DOMContentLoaded',function(){
-
-})
+	
 	var mapVersion  = {};
     var mapSystemVersion ={};
 	var mapDevice = {};
@@ -29,6 +13,7 @@ document.addEventListener('DOMContentLoaded',function(){
 	        client.subscribe("counter");//订阅主题
 			client.subscribe(server_id);
             client.subscribe("bst_fae");
+
         }
         client.onConnectionLost = onConnectionLost;//注册连接断开处理事件
         client.onMessageArrived = onMessageArrived;//注册消息接收处理事件
@@ -36,6 +21,8 @@ document.addEventListener('DOMContentLoaded',function(){
             if (responseObject.errorCode !== 0) {
                 console.log("onConnectionLost:"+responseObject.errorMessage);
                 console.log("连接已断开");
+                document.location.reload();
+
              }
         }
         function onMessageArrived(message) {
@@ -65,8 +52,17 @@ document.addEventListener('DOMContentLoaded',function(){
                     }else if(item.cmd_type == "result_readsetting"){
 		  				updateSettting(item);
 					}else if(item.cmd_type == "result_writesetting"){
-					layer.alert("设置参数成功");
-                    
+                        $.MsgBox.Alert("消息", "设置参数成功!");
+                    }else if(item.cmd_type == "result_data" || item.cmd_type == "result_log" || item.cmd_type == "result_error"){
+		  			    console.log("download url :"+item.download_url);
+                        //window.open(item.download_url);
+
+                        var $eleForm = $("<form method='get'></form>");
+                        $eleForm.attr("action",item.download_url);
+                        $(document.body).append($eleForm);
+                        //提交表单，实现下载
+                        $eleForm.submit();
+
                     }
 		  		}
 		  		
@@ -151,7 +147,7 @@ function rnd(n, m){
 function onClickSyncData(){
 	var data = $("#device_list ").val();
 	if(data.length != 1){
-		 layer.alert("请选择一个设备");
+		 $.MsgBox.Alert("消息", "请选择一个设备!");
 		return;
 	}
 	Device_ID = data[0];
@@ -167,19 +163,19 @@ function onClickSyncData(){
 	console.log("onClickSyncData : "+Device_ID);
 	
 	//for test
-	var  data = { bst_fae:true , arrow:'up',current:'42',status:'超载' , register:[1,2,4,5]};
-	index =  rnd(0,4);
-
-	if (index ==0){
-		data.arrow = 'up';
-	} else if (index == 1){
-		data.arrow = 'down';
-	} else if(index == 2){
-		data.arrow = "uprun";
-	}else {
-		data.arrow = "downrun";
-	}
-	updateStatus(data);
+	// var  data = { bst_fae:true , arrow:'up',current:'42',status:'超载' , register:[1,2,4,5]};
+	// index =  rnd(0,4);
+    //
+	// if (index ==0){
+	// 	data.arrow = 'up';
+	// } else if (index == 1){
+	// 	data.arrow = 'down';
+	// } else if(index == 2){
+	// 	data.arrow = "uprun";
+	// }else {
+	// 	data.arrow = "downrun";
+	// }
+	// updateStatus(data);
 }
 
 function updateStatus(item ){
@@ -215,6 +211,8 @@ function updateStatus(item ){
 }
 
 function getSyncData() {
+
+		
 	if(TimeCounter > 0){
 		var  data = {   bst_fae:true,
 						msg_type:"bst_fae",
@@ -226,7 +224,7 @@ function getSyncData() {
 		console.log("getSyncData call  :"+Device_ID);
 	}
 }
-var FILE_UPLOAD_URI="http://192.168.168.166:8900/upload/UploadServlet";
+var FILE_UPLOAD_URI="http://192.168.168.14:5555/upload";
 
 var resource_name;
 var resource_type;
@@ -239,13 +237,13 @@ function onClickUploadFile() {
         //alert("请先选择资源文件!");
         //window.alert("欢迎访问我们的 Web 页！");
         //window.parent.alert("请先选择资源文件!");
-        layer.alert("请选择资源文件");
+        $.MsgBox.Alert("消息", "请先选择资源文件!");
         return ;
 	}
 	
 	name =$('#resource_name').val();
 	if(name.length ==0 ){
-			layer.alert("资源名称不能为空");
+			$.MsgBox.Alert("消息", "资源名称不能为空!");
 			return ;
 	}
 
@@ -257,7 +255,7 @@ function onClickUploadFile() {
 	
 	var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
                if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
-                   layer.alert("请选择资源文件");
+                   alert("请选择资源文件");
                    return;
                }
       var formData = new FormData();
@@ -266,9 +264,85 @@ function onClickUploadFile() {
      formData.append('video-filename', fileObj.fileObj);
      formData.append('video-duration', 0);
     
+    // $.ajax({
+    //     url: FILE_UPLOAD_URI, // replace with your own server URL
+    //     data: formData,
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     type: 'POST',
+    //     success: function(response) {
+    //         console.log(response);
+    //         result =  JSON.parse(response);
+    //         if (result.resultCode == 1) {
+    //             var fileurl ;
+    //         	if (result.data.others.length >0){
+    //                 fileurl=result.data.others[0].oUrl
+    //             } else if(result.data.videos.length > 0){
+    //                 fileurl = result.data.videos[0].oUrl;
+    //             }
+    //         	fileurl =  fileurl.replace("rtc/uploadche-tomcat-8.5.31/webapps/ROOT/","");
+    //             addResource(resource_name,fileurl,resource_type);
+    //         } else {
+    //                $.MsgBox.Alert("消息", "上传文件失败!");
+    //         }
+    //     }
+    // });
+    var filedata = new FormData();
+    filedata.append("file",fileObj);
     $.ajax({
-        url: FILE_UPLOAD_URI, // replace with your own server URL
-        data: formData,
+            url: "/upload", // replace with your own server URL
+            data: filedata,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+                result =  JSON.parse(response);
+                if (result.resultCode == 1) {
+                    var fileurl = result.download_url ;
+                    addResource(resource_name,fileurl,resource_type);
+                    setTimeout(hideProgress(),2000);
+
+                } else {
+                       $.MsgBox.Alert("消息", "上传文件失败!");
+                }
+            }
+        });
+
+
+    // var i = 0;
+    // download = function(){
+    //     myProgressBar.set({value: ++i});
+    //     if(i < 10){
+    //         setTimeout(download, 100 + Math.floor(Math.random() * 1000));
+    //     }
+    // }
+
+
+    //dijit.byId("upload_progress").value = 50;
+    //dijit.byId("upload_progress").update({progress: 50});
+
+    showProgress();
+    setTimeout(updateProgress,500);
+
+}
+
+
+function showProgress() {
+    dijit.byId("upload_progress").update({progress: 0});
+    $("#upload_progress").show();
+}
+function hideProgress() {
+    $("#upload_progress").hide();
+
+}
+
+function updateProgress() {
+
+    $.ajax({
+        url: "/progress", // replace with your own server URL
         cache: false,
         contentType: false,
         processData: false,
@@ -277,15 +351,26 @@ function onClickUploadFile() {
             console.log(response);
             result =  JSON.parse(response);
             if (result.resultCode == 1) {
-            	fileurl = result.data.others[0].oUrl;
-            	fileurl =  fileurl.replace("rtc/uploadche-tomcat-8.5.31/webapps/ROOT/","");
-                addResource(resource_name,fileurl,resource_type);
+                var current = result.current;
+                var total = result.total;
+                if (total ==0 ){
+                    dijit.byId("upload_progress").update({progress: 0});
+                }
+                else {
+                    var value = current*100/total;
+                    dijit.byId("upload_progress").update({progress: value});
+                    if ( current < total){
+                        updateProgress();
+                    }
+                }
+
             } else {
-                   layer.alert("上传文件失败");
+
+                //$.MsgBox.Alert("消息", "上传文件失败!");
+
             }
         }
     });
-	
 }
 
 function addResource(name , url, type) {
@@ -301,7 +386,8 @@ function addResource(name , url, type) {
         handleAs: "text",
         load: function(data){
             console.log("get response :"+data);
-            layer.alert("上传文件成功");
+            $.MsgBox.Alert("消息", "上传文件成功!");
+
             updateResourceList();
         },
         error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
@@ -316,15 +402,14 @@ function onUpdateResource() {
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-    
-	layer.alert("请选择一个APK资源");
+        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
         return ;
     }
 
     var device = $("#device_list").val();
 
     if (device.length ==0){
-    layer.alert("请在设备部列表中选择需要升级的设备(可多选)");
+        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
 		return;
     }
 
@@ -348,7 +433,7 @@ function  onUpdateAPK(){
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-    layer.alert("请选择一个APK资源");
+        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
 		return ;
     }
 
@@ -368,14 +453,14 @@ function  onUpdateVideo()
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-    layer.alert("请选择一个视频资源");
+        $.MsgBox.Alert("消息", "请选择一个视频资源!");
         return ;
     }
 
     var device = $("#device_list").val();
 
     if (device.length ==0){
-    layer.alert("请在设备部列表中选择需要升级的设备(可多选)");
+        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
         return;
     }
 
@@ -399,7 +484,7 @@ function onUpdateOTA(){
 
     var value = $("#resource_list").val();
     if(value.length  != 1){
-    layer.alert("请选择一个OTA资源");
+        $.MsgBox.Alert("消息", "请选择一个OTA资源!");
         return ;
     }
 
@@ -419,6 +504,7 @@ function onUpdateOTA(){
     $(document).ready(function(){
         setTimeout(function () {
             updateResourceList();
+            hideProgress();
 		},1000);
 
         // setTimeout(function () {
@@ -437,18 +523,23 @@ function updateResourceList() {
         handleAs: "text",
         load: function(data){
             console.log("get response :"+data);
+
             var obj = JSON.parse(data);
             console.log("get resource  list ok :"+obj.data);
             sel = document.getElementById('resource_list');
             dojo.empty("resource_list");
-            var strhtml = [];
+
             for (index in obj.data){
             	item = obj.data[index];
-                let tr = "<tr><td><input type='checkbox' onclick='test(this);'/></td><td>" + item.date + "</td>" + "<td>" + item.type + "</td>" + "<td>" + item.name + "</td>" + "<td>" + item.url + "</td></tr>";
-                strhtml.push(tr);
-                console.log("tr："+tr);
-                document.getElementById('resource_list').innerHTML = strhtml.join('');
+
+
+                var c = dojo.doc.createElement('option');
+                str = item.date + "  |  "+item.type + "  |  "+item.name + "  |  "+item.url;
+                c.innerHTML =str;
+                c.value =item.url ;
+                sel.appendChild(c);
 			}
+
         },
         error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
             console.log("get resource list error  ");
@@ -457,36 +548,16 @@ function updateResourceList() {
     dojo.xhrPost(xhrArgs);
 }
 
-var str=new Array();
-
-function test(o) {
-    if(str.length>0){
-        str=new Array();
-    }
-    if (!o.checked) {
-        return;
-    }
-    var tr = o.parentNode.parentNode;
-    var tds = tr.cells;
-    var d = "";
-    for (var i = 0; i < tds.length; i++) {
-        if (i < 5) {
-            d = d + tds[i].innerHTML + "|";
-        }
-    }
-    var b=d.substring(d.indexOf("|")+1,d.length-1);
-    str = b.split('|');
-}
-
 function deleteResource() {
-    if (str.length != 4) {
-        layer.alert("请选择一条数据");
-        return;
+    var value = $("#resource_list").val();
+
+    if (value.length != 1){
+        $.MsgBox.Alert("消息", "请选择一个资源文件!");
+        return ;
     }
-    layer.confirm("确认删除资源？",function (i) {
-        layer.close(i);
+    $.MsgBox.Confirm("消息","确认删除资源！",function(){
         deleteResourceFunc();
-    })
+	});
 }
 
 function deleteResourceFunc(){
@@ -495,7 +566,7 @@ function deleteResourceFunc(){
 
     var data = {
         cmd:"delete",
-		url:value[3]
+		url:value[0]
     };
  var xhrArgs = {      
  			url: "resource",
@@ -508,7 +579,7 @@ function deleteResourceFunc(){
  			},      
  			error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.        
  				console.log("post error ");
-                layer.alert("删除失败");
+                $.MsgBox.Alert("消息", "删除失败!");
  			}    
  			}  
  			
@@ -524,7 +595,7 @@ function downloadLOG()
 function downloadDeviceFile(type) {
     array =  $("#device_list ").val();
     if(array.length != 1){
-        layer.alert("请选择一个设备");
+        $.MsgBox.Alert("消息", "请选择一个设备!");
         return;
     }
     client_id = array[0];
@@ -532,23 +603,72 @@ function downloadDeviceFile(type) {
     var  data = { bst_fae:true,
         msg_type:"bst_fae",
         cmd_type: type,
-        upload_url:"http://192.168.168.166:8900/upload/UploadServlet" ,
+        upload_url: FILE_UPLOAD_URI  ,
         server_id:server_id} ;
 
-    console.log(" device id :"+client_id);
+    console.log(" device id :"+client_id +" value :"+JSON.stringify(data));
     sendMqttMessage(client_id, JSON.stringify(data));
 
 }
 function downloadData() {
     downloadDeviceFile("data");
-
-
 }
 function downloadError () {
     downloadDeviceFile("error");
+
+    // var data = {
+    //     cmd:"addErrorInfo",
+    //     id:"100001",
+    //     date:"2018-1015 15:30:33",
+    //     version:"45",
+    //     version_system:"20181012",
+    //     error:"this is a test of error \n this is a test of error2 "
+    // };
+    // var xhrArgs = {
+    //     url: "resource",
+    //     postData: JSON.stringify(data),
+    //     handleAs: "text",
+    //     load: function(data){
+    //         console.log("get response :"+data);
+    //         $.MsgBox.Alert("消息", "添加异常信息测试!");
+    //
+    //         updateResourceList();
+    //     },
+    //     error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
+    //         console.log("post error ");
+    //     }
+    // }
+    // var deferred = dojo.xhrPost(xhrArgs);
 }
 
 function deleteError () {
+        var value = $("#log_list").val();
+
+        if (value.length != 1){
+            $.MsgBox.Alert("消息", "请选择一条LOG记录!");
+            return ;
+        }
+
+    var data = {
+        cmd:"deleteErrorInfo",
+        date:value[0]
+    };
+    var xhrArgs = {
+        url: "resource",
+        postData: JSON.stringify(data),
+        handleAs: "text",
+        load: function(data){
+            console.log("get response :"+data);
+            updateError();
+            //$.MsgBox.Alert("消息", "成功!");
+        },
+        error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
+            console.log("post error ");
+            $.MsgBox.Alert("消息", "删除失败!");
+        }
+    }
+
+    var deferred = dojo.xhrPost(xhrArgs);
 
 }
 
@@ -575,7 +695,7 @@ function loadSetting ()
 
 	list = $("#device_list ").val();
     if(list.length != 1){
-        layer.alert("请选择一个设备");
+        $.MsgBox.Alert("消息", "请选择一个设备!");
         return;
     }
     Device_ID = list[0];
@@ -639,14 +759,14 @@ function updateSettting(data)
 
 
     //网络自动校准时间
-    if(data.autotime){
+    if(data.autoTime){
         dijit.byId("set_date").disabled = true;
         dijit.byId("set_time").disabled = true;
     }else{
         dijit.byId("set_date").disabled = false;
         dijit.byId("set_time").disabled = false;
     }
-    dijit.byId('set_autotime').attr('checked',!data.autotime);
+    dijit.byId('set_autotime').attr('checked',!data.autoTime);
 
     $("#set_welcome").html ( data.welcome);
 
@@ -664,7 +784,7 @@ function saveSetting()
 
     list = $("#device_list ").val();
     if(list.length != 1){
-        layer.alert("请选择一个设备");
+        $.MsgBox.Alert("消息", "请选择一个设备!");
         return;
     }
     Device_ID = list[0];
@@ -708,14 +828,14 @@ function saveSetting()
         language:getValue("set_lan")=="中文"?"ch":"en",
         resolution:getValue("set_res"),
         direction:getValue("set_deriction"),
-        auto_time:!(dijit.byId("set_autotime").checked),
+        autoTime:!(dijit.byId("set_autotime").checked),
         dateTime:datestr,
 		clockTime:timestr,
         normalLight:getValue("set_nomal_light"),
         idleLight:getValue("set_idle_light"),
         reportingVolume:getValue("set_come_voice"),
         videoVolume:getValue("set_video_voice"),
-		standbyTime:getValue("set_standby_time"),
+        standbyTime:getValue("set_standby").replace("分钟",""),
 		welcome:getValue("set_welcome")
     };
 
@@ -728,10 +848,9 @@ function saveSetting()
 }
 
 
-var error_list ;
+var error_list = {} ;
 
-
-    function updateResourceList() {
+function updateError() {
         var data = {
             cmd:"queryError"
         };
@@ -747,7 +866,7 @@ var error_list ;
                 sel = document.getElementById('log_list');
                 dojo.empty("log_list");
 
-                error_list = obj.data;
+                //error_list = obj.data;
                 for (index in obj.data){
                     item = obj.data[index];
 
@@ -757,6 +876,7 @@ var error_list ;
                     c.innerHTML =str;
                     c.value =item.date ;
                     sel.appendChild(c);
+                    error_list[c.value]=item;
                 }
 
             },
@@ -767,3 +887,15 @@ var error_list ;
         dojo.xhrPost(xhrArgs);
     }
 
+    function onErrorDetail()
+    {
+        var values = $("#log_list").val();
+        if (values.length >0){
+            var item = error_list[values[0]];
+
+            $("#log_device_id").html("设备ID:"+item.id);
+            $("#log_version").html( "版本:" + item.version + "   "+item.version_system);
+            $("#log_date").html("日期:"+item.date);
+            $("#log_detail").html(item.error.replace("\n","<br>"));
+        }
+    }

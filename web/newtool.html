@@ -4,23 +4,6 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Untitled</title>
-    <style>@import "themes/claro/document.css";
-    @import "themes/claro/claro.css";
-    @import "lib/dojo/gridx/resources/claro/Gridx.css";
-    @import "lib/dojo/gridx/resources/claro/Gridx_rtl.css";
-    @import "app.css";
-    #img{
-        position: absolute;
-        left: 900px;
-        bottom: 400px;
-        z-index: 900;
-    }
-    </style>
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="layui/css/modules/layer/default/layer.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="layui/lay/modules/layer.js"></script>
-    <script src="layui/layui.js"></script>
     <script type="text/javascript" src="lib/dojo/dojo/dojo.js" data-dojo-config="'parseOnLoad':true,'async':true,'packages':[{'name':'gridx','location':'../gridx'},{'name':'clipart','location':'../../clipart'},{'name':'maqettaSamples','location':'../../../samples'},{'name':'maqetta','location':'../../maqetta'},{'name':'shapes','location':'../../shapes'},{'name':'zazl','location':'../../zazl'},{'name':'widgets','location':'../../custom'}],'themeMap':[['Android','',['themes/android/android.css']],['BlackBerry','',['themes/blackberry/blackberry.css']],['iPad','',['themes/ipad/ipad.css']],['iPhone','',['themes/iphone/iphone.css']],['.*','',['themes/iphone/iphone.css']]],'mblThemeFiles':[],'mblLoadCompatPattern':''"></script>
     <script type="text/javascript">
         require([
@@ -57,14 +40,18 @@
                 style: "width: 300px"
             });
         });
+
     </script>
+    <style>@import "themes/claro/document.css";@import "themes/claro/claro.css";@import "lib/dojo/gridx/resources/claro/Gridx.css";@import "lib/dojo/gridx/resources/claro/Gridx_rtl.css";@import "app.css";
+    </style>
     <script type="text/javascript" src="app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="bstapp.js"></script>
     <script type="text/javascript" src="mqttws31.min.js"></script>
 
 </head>
 <body data-maq-flow-layout="true" data-maq-comptype="desktop" class="claro" data-maq-ws="collapse" data-maq-appstates="{}" id="myapp">
-<div data-dojo-type="dijit/layout/BorderContainer" design="sidebar" persist="false" gutters="true" style="min-width: 1em; min-height: 1px; z-index: 0; width: 100%; height: 100%;" id="divmanage">
+<div data-dojo-type="dijit/layout/BorderContainer" design="sidebar" persist="false" gutters="true" style="min-width: 1em; min-height: 1px; z-index: 0; width: 100%; height: 100%;">
 
     <div data-dojo-type="dijit/layout/ContentPane" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" region="left" splitter="true" maxSize="Infinity" doLayout="false" style="width: 210px;">
         <label style="position: absolute; z-index: 900; left: 10.96875px; top: 34px;">
@@ -80,10 +67,14 @@
 <div data-dojo-type="dijit/layout/ContentPane" title="实时显示" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" selected="true" closable="false" doLayout="false">
        <div data-dojo-type="dijit/layout/ContentPane" id="device_content" title="Pane" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" style="border: 1px solid lightgrey; width: 500px; height: 580px; position: absolute; left: 12px; top: 89px; z-index: 0; color: #eee3e3;"></div>
        <label id="current_floor" style="font-size: 120px; position: absolute; z-index: 900; left: 170px; top: 170px; color: #0a0af1;">
+
          1</label>
        <label id="register_floor" style="font-size: 40px; position: absolute; z-index: 900; left: 64px; top: 382px; color: #0a11f1;">
+
          已登记:</label>
        <label id="status_label" style="font-size: 30px; color: red; position: absolute; z-index: 900; left: 420px; top: 220.6875px;">
+
+
    </label>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="同步数据" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 75px; top: 45px;" onclick="onClickSyncData()"></input>
     <!--<img id="down_image" data-dojo-type="clipart/ArrowDown" style="width: 80px; height: 80px; position: absolute; z-index: 900; left: 54px; top: 206.703125px;"></img>--><!--<img id="up_image" data-dojo-type="clipart/ArrowUp" style="width: 80px; height: 80px; position: absolute; z-index: 900; left: 54px; top: 206.703125px;"></img>--><img id="arrow_image" src="img/none.png" style="width: 60px; height: 80px; position: absolute; z-index: 900; left: 60px; top: 206.703125px;"></img>
@@ -121,33 +112,29 @@
 
 
     ui</option>
+           <option value="video">
+
+
+    video</option>
+
        </select>
        <input id="file" type="file" style="position: absolute; z-index: 900; left: 36px; top: 17.9140625px;"></input>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="上传资源" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 850.0125px; top: 14.435937500000001px;" onclick="onClickUploadFile()"></input>
-<span data-dojo-type="dijit/ProgressBar" indeterminate="false" style="height: auto; position: absolute; z-index: 900; left: 36px; top: 56px; width: 882px;"></span>
+<span  id="upload_progress" data-dojo-type="dijit/ProgressBar" indeterminate="false" style="height: auto; position: absolute; z-index: 900; left: 36px; top: 56px; width: 882px;"></span>
        <input onclick="onUpdateAPK()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="APK升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940.1875px; top: 257.9375px;"></input>
        <input onclick="onUpdateOTA()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="OTA升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 939.984375px; top: 203px;"></input>
        <input onclick="onUpdateResource()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="ＵＩ升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940px; top: 310px;"></input>
          <input onclick="onUpdateVideo()"  type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="Video升级" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940px; top: 360px;"></input>
-         <!--<select multiple="true" data-dojo-type="dijit/form/MultiSelect" id="resource_list" intermediateChanges="false" style="height: auto; position: absolute; z-index: 900; left: 39px; top: 100px; bottom: 10px; width: 886px;">-->
+
+         <select multiple="true" data-dojo-type="dijit/form/MultiSelect" id="resource_list" intermediateChanges="false" style="height: auto; position: absolute; z-index: 900; left: 39px; top: 100px; bottom: 10px; width: 886px;">
+
 </select>
-         <table style="height: auto; position: absolute; z-index: 900; left: 39px; top: 100px; bottom: 10px; width: 886px;"
-                border="1" id="table">
-             <thead>
-             <th>单选</th>
-            <th>上传时间</th>
-            <th>文件类型</th>
-            <th>文件名称</th>
-            <th>文件地址</th>
-        </thead>
-             <tbody id="resource_list"></tbody>
-         </table>
        <input type="text" data-dojo-type="dijit/form/TextBox" id="resource_name" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="资源名称" style="width: 80px; position: absolute; z-index: 900; left: 637px; top: 18.703125px;"></input>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="删除资源" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 940.234375px; top: 150px;" onclick="deleteResource()"></input>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="刷新资源" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 939.984375px; top: 105px;" onclick="updateResourceList()"></input>
      </div>
      <div data-dojo-type="dijit/layout/ContentPane" title="日志">
-       <select multiple="true" data-dojo-type="dijit/form/MultiSelect" id="log_list" intermediateChanges="false" style="height: auto; bottom: 10px; position: absolute; z-index: 900; width: 402px; left: 19.978125000000034px; top: 56.5px;"></select>
+       <select  onclick="onErrorDetail()"   multiple="true" data-dojo-type="dijit/form/MultiSelect" id="log_list" intermediateChanges="false" style="height: auto; bottom: 10px; position: absolute; z-index: 900; width: 402px; left: 19.978125000000034px; top: 56.5px;"></select>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="下载LOG" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 185.31875000000002px; top: 18.912499999999994px;" onclick="downloadLOG()"></input>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="下载数据" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 269px; top: 18.896874999999994px;" onclick="downloadData()"></input>
        <input type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="下载异常" iconClass="dijitNoIcon" style="position: absolute; z-index: 900; left: 351.98125000000005px; top: 18.881249999999994px;" onclick="downloadError()"></input>
@@ -161,10 +148,10 @@
        <label id="log_device_id" style="position: absolute; z-index: 900; left: 492px; top: 56.5px;">
 
       设备ID：</label>
-       <label id="log_version" style="position: absolute; z-index: 900; left: 767px; top: 56.5px;">
+       <label id="log_version" style="position: absolute; z-index: 900; left: 850px; top: 56.5px;">
 
       版本：</label>
-       <label id="log_date" style="position: absolute; z-index: 900; left: 628px; top: 56.5px;">
+       <label id="log_date" style="position: absolute; z-index: 900; left: 650px; top: 56.5px;">
 
       日期：</label>
        <label style="position: absolute; z-index: 900; left: 492px; top: 88px;">
@@ -212,7 +199,7 @@
        <label style="position: absolute; z-index: 900; left: 479.3125px; top: 218px;">
 
          显示方向</label>
-       <select  id="set_deriction" value="0" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 550px; top: 215.5px;">
+       <select  id="set_deriction"  data-dojo-type="dijit/form/ComboBox" value="0" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 550px; top: 215.5px;">
          <option value="0">
 
            0</option>
@@ -359,21 +346,20 @@
        <label style="position: absolute; z-index: 900; left: 182px; top: 449.5px;">
        待机时间</label>
        <select  id="set_standby" data-dojo-type="dijit/form/ComboBox" value="5分钟" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 99px; position: absolute; z-index: 900; left: 252.6875px; top: 447px;">
-         <option value="5分钟" selected="true">
-           5分钟</option>
-         <option value="15分钟">
+           <option value="5" selected="true">5分钟</option>
+         <option value="15">
            15分钟</option>
-         <option value="30分钟">
+         <option value="30">
            30分钟</option>
-         <option value="45分钟">
+         <option value="45">
            45分钟</option>
-         <option value="60分钟">
+         <option value="60">
            60分钟</option>
        </select>
      </div>
      </span></div>
 </div>
-<img src="5-121204194037-50.gif" style="display: none" id="img">
+
 <script type="text/javascript" src="mqtt.js"></script>
 
 </body>
