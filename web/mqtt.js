@@ -1,4 +1,20 @@
-	
+document.addEventListener('readystatechange',function(){
+    console.log("运行状态:"+document.readyState);
+    if(document.readyState=="interactive"){
+        var pic = document.getElementById("img");
+        var divmanage=document.getElementById("divmanage");
+        pic.style.display="block";
+        divmanage.style.display="none";
+    }
+    if(document.readyState=="complete"){
+        var pic = document.getElementById("img");
+        var divmanage=document.getElementById("divmanage");
+        pic.style.display="none";
+        divmanage.style.display="block";
+    }
+})
+
+
 	var mapVersion  = {};
     var mapSystemVersion ={};
 	var mapDevice = {};
@@ -52,7 +68,8 @@
                     }else if(item.cmd_type == "result_readsetting"){
 		  				updateSettting(item);
 					}else if(item.cmd_type == "result_writesetting"){
-                        $.MsgBox.Alert("消息", "设置参数成功!");
+                        /*$.MsgBox.Alert("消息", "设置参数成功!");*/
+                        layer.alert("设置参数成功");
                     }else if(item.cmd_type == "result_data" || item.cmd_type == "result_log" || item.cmd_type == "result_error"){
 		  			    console.log("download url :"+item.download_url);
                         //window.open(item.download_url);
@@ -147,7 +164,8 @@ function rnd(n, m){
 function onClickSyncData(){
 	var data = $("#device_list ").val();
 	if(data.length != 1){
-		 $.MsgBox.Alert("消息", "请选择一个设备!");
+		 /*$.MsgBox.Alert("消息", "请选择一个设备!");*/
+        layer.alert("请选择一个设备");
 		return;
 	}
 	Device_ID = data[0];
@@ -237,13 +255,15 @@ function onClickUploadFile() {
         //alert("请先选择资源文件!");
         //window.alert("欢迎访问我们的 Web 页！");
         //window.parent.alert("请先选择资源文件!");
-        $.MsgBox.Alert("消息", "请先选择资源文件!");
+        /*$.MsgBox.Alert("消息", "请先选择资源文件!");*/
+        layer.alert("请先选择资源文件!");
         return ;
 	}
 	
 	name =$('#resource_name').val();
 	if(name.length ==0 ){
-			$.MsgBox.Alert("消息", "资源名称不能为空!");
+			/*$.MsgBox.Alert("消息", "资源名称不能为空!");*/
+        layer.alert("资源名称不能为空!");
 			return ;
 	}
 
@@ -255,7 +275,8 @@ function onClickUploadFile() {
 	
 	var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
                if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
-                   alert("请选择资源文件");
+                   /*alert("请选择资源文件");*/
+                   layer.alert("请选择资源文件");
                    return;
                }
       var formData = new FormData();
@@ -306,7 +327,8 @@ function onClickUploadFile() {
                     setTimeout(hideProgress(),2000);
 
                 } else {
-                       $.MsgBox.Alert("消息", "上传文件失败!");
+                       /*$.MsgBox.Alert("消息", "上传文件失败!");*/
+                    layer.alert("上传文件失败!");
                 }
             }
         });
@@ -386,8 +408,8 @@ function addResource(name , url, type) {
         handleAs: "text",
         load: function(data){
             console.log("get response :"+data);
-            $.MsgBox.Alert("消息", "上传文件成功!");
-
+            /*$.MsgBox.Alert("消息", "上传文件成功!");*/
+            layer.alert("上传文件成功!");
             updateResourceList();
         },
         error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
@@ -397,19 +419,26 @@ function addResource(name , url, type) {
     var deferred = dojo.xhrPost(xhrArgs);
 }
 
-function onUpdateResource() {
+function onUpdateResource(value) {
     //updateResourceList();
-
-    var value = $("#resource_list").val();
+    console.log("视频更新:"+value);
+    /*var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
+        /!*$.MsgBox.Alert("消息", "请选择一个AKP资源!");*!/
+        layer.alert("请选择一个AKP资源!");
         return ;
-    }
+    }*/
+   /* var value=resource_select;
+    if(value.length  == 0){
+        layer.alert("请选择一个UI资源!");
+        return ;
+    }*/
 
     var device = $("#device_list").val();
 
     if (device.length ==0){
-        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
+        layer.alert("请在设备列表中选择需要升级的设备(可多选)!");
+        /*$.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");*/
 		return;
     }
 
@@ -419,7 +448,7 @@ function onUpdateResource() {
         msg_type: "bst_fae",
         cmd_type: "updateui",
         server_id: server_id,
-        download_url:value[0]};
+        download_url:value};
 
     var jsonstr = JSON.stringify(data);
 
@@ -429,38 +458,44 @@ function onUpdateResource() {
 
     }
 }
-function  onUpdateAPK(){
-
-    var value = $("#resource_list").val();
+function  onUpdateAPK(value){
+console.log("APK升级:"+value);
+    /*var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个AKP资源!");
+       /!* $.MsgBox.Alert("消息", "请选择一个AKP资源!");*!/
+        layer.alert("请选择一个AKP资源!");
 		return ;
-    }
-
+    }*/
       var  data = {
           bst_fae: true,
           msg_type: "bst_fae",
           cmd_type: "updateapk",
           server_id: server_id,
-		  download_url:value[0]};
+		  download_url:value};
 
     sendMqttMessage("bst_fae", JSON.stringify(data));
     console.log("onUpdateAPK : "+data);
 }
 
-function  onUpdateVideo()
+function  onUpdateVideo(value)
 {
-
-    var value = $("#resource_list").val();
+    console.log("视频地址:"+value);
+    /*var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个视频资源!");
+        /!*$.MsgBox.Alert("消息", "请选择一个视频资源!");*!/
+        layer.alert("请选择一个视频资源!");
         return ;
-    }
-
+    }*/
+    /*var value=resource_select;
+    if (value.length  == 0) {
+        layer.alert("请选择一个Video资源!");
+        return;
+    }*/
     var device = $("#device_list").val();
 
     if (device.length ==0){
-        $.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");
+        /*$.MsgBox.Alert("消息", "请在设备列表中选择需要升级的设备(可多选)!");*/
+        layer.alert("请在设备列表中选择需要升级的设备(可多选)!");
         return;
     }
 
@@ -470,7 +505,7 @@ function  onUpdateVideo()
         msg_type: "bst_fae",
         cmd_type: "updatevideo",
         server_id: server_id,
-        download_url:value[0]};
+        download_url:value};
 
     var jsonstr = JSON.stringify(data);
     for (index in device){
@@ -480,20 +515,25 @@ function  onUpdateVideo()
 }
 
 
-function onUpdateOTA(){
-
-    var value = $("#resource_list").val();
+function onUpdateOTA(value){
+    console.log("OTA更新:"+value);
+    /*var value = $("#resource_list").val();
     if(value.length  != 1){
-        $.MsgBox.Alert("消息", "请选择一个OTA资源!");
+        /!*$.MsgBox.Alert("消息", "请选择一个OTA资源!");*!/
+        layer.alert("请选择一个OTA资源!");
         return ;
-    }
-
+    }*/
+    /*var value=value;*/
+    /*if (value.length != 1) {
+        layer.alert("请选择一个OTA资源!");
+        return;
+    }*/
     var  data = {
         bst_fae: true,
         msg_type: "bst_fae",
         cmd_type: "updateota",
         server_id: server_id,
-        download_url:value[0]};
+        download_url:value};
 
     sendMqttMessage("bst_fae", JSON.stringify(data));
     console.log("onUpdateOTA : "+data);
@@ -529,16 +569,43 @@ function updateResourceList() {
             sel = document.getElementById('resource_list');
             dojo.empty("resource_list");
 
-            for (index in obj.data){
+            /*for (index in obj.data){
             	item = obj.data[index];
 
 
                 var c = dojo.doc.createElement('option');
-                str = item.date + "  |  "+item.type + "  |  "+item.name + "  |  "+item.url;
-                c.innerHTML =str;
+                resource_select = item.date + "  |  "+item.type + "  |  "+item.name + "  |  "+item.url;
+                c.innerHTML =resource_select;
                 c.value =item.url ;
                 sel.appendChild(c);
-			}
+			}*/
+            var strhtml = [];
+            for (index in obj.data){
+                item = obj.data[index];
+                var item_type=item.type;
+                console.log("刷新地址:"+item.type);
+                /*var c = dojo.doc.createElement('option');
+                resource_select = item.date + "  |  "+item.type + "  |  "+item.name + "  |  "+item.url;
+                c.innerHTML =resource_select;
+                c.value =item.url ;
+                sel.appendChild(c);*/
+                let tr = "<tr><td>" + item.name + "</td>" + "<td>" + item.type + "</td>" + "<td>" + item.date + "</td>" + "<td>" + item.url + "</td><td><a href='#' onclick='deleteResource(\""+item.url+"\")'>删除</a></td>";
+                if(item_type=="ota"){
+                    tr+="<td><a href='#' onclick='onUpdateOTA(\""+item.url+"\)'>升级</a></td></tr>";
+                }
+                if(item_type=="apk"){
+                    tr+="<td><a href='#' onclick='onUpdateAPK(\""+item.url+"\")'>升级</a></td></tr>";
+                }
+                if(item_type=="ui"){
+                    tr+="<td><a href='#' onclick='onUpdateResource(\""+item.url+"\")'>升级</a></td></tr>";
+                }
+                if(item_type=="video")
+                {
+                   tr+="<td><a href='#' onclick='onUpdateVideo(\""+item.url+"\")'>升级</a></tr>";
+                }
+                strhtml.push(tr);
+                document.getElementById('resource_list').innerHTML = strhtml.join('');
+            }
 
         },
         error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
@@ -548,25 +615,28 @@ function updateResourceList() {
     dojo.xhrPost(xhrArgs);
 }
 
-function deleteResource() {
-    var value = $("#resource_list").val();
+var resource_select="";
 
-    if (value.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个资源文件!");
-        return ;
-    }
-    $.MsgBox.Confirm("消息","确认删除资源！",function(){
-        deleteResourceFunc();
-	});
+function checkItem(checkObj) {
+    /*选中之后取消勾选清空数组*/
+    resource_select = checkObj.value;
+    console.log("resouce_table :"+resource_select);
 }
 
-function deleteResourceFunc(){
+function deleteResource(value) {
+    console.log("value"+value);
+    layer.confirm("确认删除资源吗？",function (i) {
+        layer.close(i);
+        deleteResourceFunc(value);
+    })
+}
 
-    var value = $("#resource_list").val();
-
+function deleteResourceFunc(value){
+    /*var value = $("#resource_list").val();*/
+    /*var value=resource_select;*/
     var data = {
         cmd:"delete",
-		url:value[0]
+		url:value
     };
  var xhrArgs = {      
  			url: "resource",
@@ -579,7 +649,8 @@ function deleteResourceFunc(){
  			},      
  			error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.        
  				console.log("post error ");
-                $.MsgBox.Alert("消息", "删除失败!");
+                /*$.MsgBox.Alert("消息", "删除失败!");*/
+                layer.alert("删除失败!");
  			}    
  			}  
  			
@@ -595,7 +666,8 @@ function downloadLOG()
 function downloadDeviceFile(type) {
     array =  $("#device_list ").val();
     if(array.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个设备!");
+        /*$.MsgBox.Alert("消息", "请选择一个设备!");*/
+        layer.alert("请选择一个设备!");
         return;
     }
     client_id = array[0];
@@ -645,7 +717,8 @@ function deleteError () {
         var value = $("#log_list").val();
 
         if (value.length != 1){
-            $.MsgBox.Alert("消息", "请选择一条LOG记录!");
+           /* $.MsgBox.Alert("消息", "请选择一条LOG记录!");*/
+            layer.alert("请选择一条LOG记录!");
             return ;
         }
 
@@ -664,7 +737,8 @@ function deleteError () {
         },
         error: function(error){        // We'll 404 in the demo, but that's okay.  We don't have a 'postIt' service on the        // docs server.
             console.log("post error ");
-            $.MsgBox.Alert("消息", "删除失败!");
+            /*$.MsgBox.Alert("消息", "删除失败!");*/
+            layer.alert("删除失败!");
         }
     }
 
@@ -695,7 +769,8 @@ function loadSetting ()
 
 	list = $("#device_list ").val();
     if(list.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个设备!");
+        /*$.MsgBox.Alert("消息", "请选择一个设备!");*/
+        layer.alert("请选择一个设备!");
         return;
     }
     Device_ID = list[0];
@@ -766,7 +841,7 @@ function updateSettting(data)
         dijit.byId("set_date").disabled = false;
         dijit.byId("set_time").disabled = false;
     }
-    dijit.byId('set_autotime').attr('checked',!data.autoTime);
+    /*dijit.byId('set_autotime').attr('checked',!data.autoTime);*/
 
     $("#set_welcome").html ( data.welcome);
 
@@ -784,7 +859,8 @@ function saveSetting()
 
     list = $("#device_list ").val();
     if(list.length != 1){
-        $.MsgBox.Alert("消息", "请选择一个设备!");
+        /*$.MsgBox.Alert("消息", "请选择一个设备!");*/
+        layer.alert("请选择一个设备!");
         return;
     }
     Device_ID = list[0];
@@ -828,7 +904,7 @@ function saveSetting()
         language:getValue("set_lan")=="中文"?"ch":"en",
         resolution:getValue("set_res"),
         direction:getValue("set_deriction"),
-        autoTime:!(dijit.byId("set_autotime").checked),
+        autoTime:false,
         dateTime:datestr,
 		clockTime:timestr,
         normalLight:getValue("set_nomal_light"),
@@ -872,8 +948,8 @@ function updateError() {
 
 
                     var c = dojo.doc.createElement('option');
-                    str = item.date + "  |  "+item.error;
-                    c.innerHTML =str;
+                    resource_select = item.date + "  |  "+item.error;
+                    c.innerHTML =resource_select;
                     c.value =item.date ;
                     sel.appendChild(c);
                     error_list[c.value]=item;
