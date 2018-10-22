@@ -10,13 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 @WebServlet(name = "ResourceServlet")
 public class ResourceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/javascript;charset=utf-8");
+        response.setCharacterEncoding("UTF-8");
         Reader reader= request.getReader();
         String str =  ((BufferedReader) reader).readLine();
+        str = new String(str.getBytes("ISO-8859-1"),"UTF-8");
         System.out.println("read line :"+str);
 
         JSONObject result = new JSONObject();
@@ -44,7 +49,11 @@ public class ResourceServlet extends HttpServlet {
 
             }else if(obj.getString("cmd").equals("query")){
                 result.put("success",1);
-                result.put("data", loadResourceFile());
+
+                JSONArray array = loadResourceFile();
+                Collections.sort(array, new JSONCompare());
+                result.put("data", array);
+                result.put("sort","sort by type");
             }else if(obj.getString("cmd").equals("addErrorInfo")){
                 JSONArray array =  loadErrorFile();
                 Date now=new Date();
@@ -78,6 +87,30 @@ public class ResourceServlet extends HttpServlet {
 
     }
 
+
+
+    class JSONCompare implements Comparator<Object>{
+        @Override
+        public int compare(Object o1, Object o2) {
+            JSONObject j1 = (JSONObject)o1 ;
+            JSONObject j2 = (JSONObject)o2 ;
+            String key = j1.getString("type");
+            String key2 = j2.getString("type");
+            if (key.equals("ota")){
+                key = "ato";
+            }
+            if (key2.equals("ota")){
+                key2 = "ato";
+            }
+            if (key.equals(key2)){
+                key = j1.getString("date");
+                key2 = j2.getString("date");
+            }else{
+                return key.compareTo(key2);
+            }
+
+        }
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         doPost(request,response);

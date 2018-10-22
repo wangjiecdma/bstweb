@@ -56,6 +56,10 @@ document.addEventListener('readystatechange',function(){
 		  		if(item.msg_type == "bst_fae"){
 		  			if(item.cmd_type == "result_screen"){
 
+		  			    if (item.download_url == undefined){
+		  			        return ;
+                        }
+
 		  				$("#image_screen").attr('src',item.download_url.replace("rtc/uploadche-tomcat-8.5.31/webapps/ROOT/",""));
 		  				date = new Date();
 		  				time  = "    "+date.getMonth()+"-" +date.getDay()+ "   "+ date.getHours()+ ":"+date.getMinutes()+":"+date.getSeconds();
@@ -99,7 +103,7 @@ function getConnectedDevice(){
 	}
 
 	for(key in list){
-		delete mapDevice[key];
+		delete mapDevice[list[key]];
 	}
 	
 	var list =  Object.keys(mapDevice);
@@ -138,16 +142,24 @@ function onClickUpdate(){
 	var  fillter = $('#fillter').val();
 	console.log("update button click fillter :  "+fillter);
 	for (index  in list){
+        var text = list[index] +"#version:"+ mapVersion[list[index]];
+        if(list[index].length == 7){
+            text = text.replace("#","&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;");
+        }else{
+            text = text.replace("#","   ");
+        }
+
 		if(fillter != ''){
-			if(list[index].indexOf(fillter) == -1){
+			if(text.indexOf(fillter) == -1){
 				continue;
 			}
 		}
 
 		var c = dojo.doc.createElement('option');
-                 c.innerHTML = list[index] +"	, app:"+ mapVersion[list[index]];
-                 c.value = list[index];
-                 sel.appendChild(c);
+
+     c.innerHTML = text;
+     c.value = list[index];
+     sel.appendChild(c);
 	}
 
 }
@@ -204,24 +216,32 @@ function updateStatus(item ){
 		  			
 		  	if(arrow == "up"){
 		  		$('#arrow_image').attr("src","img/up.png");
+                $('#arrow_image').show();
 
             }else if(arrow == 'down'){
                 $('#arrow_image').attr("src","img/down.png");
+                $('#arrow_image').show();
 
             }else if(arrow == 'downrun'){
-                $('#arrow_image').attr("src","img/downrun.gif");
+                $('#arrow_image').attr("src","img/down.png");
+                $('#arrow_image').show();
 
             }else if(arrow == 'uprun'){
-                $('#arrow_image').attr("src","img/uprun.gif");
+                $('#arrow_image').attr("src","img/up.png");
+                $('#arrow_image').show();
             }
             else {
-                $('#arrow_image').attr("src","img/none.png");
+                $('#arrow_image').hide();
 		  	}
+
+
+
 		  	if(current != undefined){
                 $("#current_floor").html(''+current);
 			}
     		if(register != undefined){
-                $("#register_floor").html('已登记：'+register);
+		  	    register = register.replace(","," ");
+                $("#register_floor").html(''+register);
 			}
     		if(status != undefined){
         		$("#status_label").html(status);
@@ -242,7 +262,7 @@ function getSyncData() {
 		console.log("getSyncData call  :"+Device_ID);
 	}
 }
-var FILE_UPLOAD_URI="http://192.168.168.14:5555/upload";
+var FILE_UPLOAD_URI="http://192.168.168.166:8900/fae/upload";
 
 var resource_name;
 var resource_type;
@@ -312,7 +332,7 @@ function onClickUploadFile() {
     var filedata = new FormData();
     filedata.append("file",fileObj);
     $.ajax({
-            url: "/upload", // replace with your own server URL
+            url: "/fae/upload", // replace with your own server URL
             data: filedata,
             cache: false,
             contentType: false,
@@ -364,7 +384,7 @@ function hideProgress() {
 function updateProgress() {
 
     $.ajax({
-        url: "/progress", // replace with your own server URL
+        url: "progress", // replace with your own server URL
         cache: false,
         contentType: false,
         processData: false,
@@ -457,6 +477,8 @@ function onUpdateResource(value) {
         console.log("update resource for "+device[index] +"    send data :"+jsonstr);
 
     }
+    layer.alert("开始升级，请稍后!");
+
 }
 function  onUpdateAPK(value){
 console.log("APK升级:"+value);
@@ -473,8 +495,16 @@ console.log("APK升级:"+value);
           server_id: server_id,
 		  download_url:value};
 
-    sendMqttMessage("bst_fae", JSON.stringify(data));
-    console.log("onUpdateAPK : "+data);
+
+
+    var device = getConnectedDevice();
+    var jsonstr = JSON.stringify(data);
+    for (index in device) {
+        sendMqttMessage(device[index], jsonstr);
+        console.log("onUpdateAPK : " + jsonstr);
+    }
+    layer.alert("开始升级，请稍后!");
+
 }
 
 function  onUpdateVideo(value)
@@ -512,6 +542,9 @@ function  onUpdateVideo(value)
         sendMqttMessage(device[index], jsonstr);
         console.log("update video for "+device[index] +"    send data :"+jsonstr);
     }
+
+    layer.alert("开始升级，请稍后!");
+
 }
 
 
@@ -534,9 +567,14 @@ function onUpdateOTA(value){
         cmd_type: "updateota",
         server_id: server_id,
         download_url:value};
+    var device =getConnectedDevice();
 
-    sendMqttMessage("bst_fae", JSON.stringify(data));
-    console.log("onUpdateOTA : "+data);
+    var jsonstr = JSON.stringify(data);
+    for (index in device) {
+        sendMqttMessage(device[index], jsonstr);
+        console.log("onUpdateOTA : " + jsonstr);
+    }
+    layer.alert("开始升级，请稍后!");
 
 }
 
@@ -591,7 +629,7 @@ function updateResourceList() {
                 sel.appendChild(c);*/
                 let tr = "<tr><td>" + item.name + "</td>" + "<td>" + item.type + "</td>" + "<td>" + item.date + "</td>" + "<td>" + item.url + "</td><td><a href='#' onclick='deleteResource(\""+item.url+"\")'>删除</a></td>";
                 if(item_type=="ota"){
-                    tr+="<td><a href='#' onclick='onUpdateOTA(\""+item.url+"\)'>升级</a></td></tr>";
+                    tr+="<td><a href='#' onclick='onUpdateOTA(\""+item.url+"\")'>升级</a></td></tr>";
                 }
                 if(item_type=="apk"){
                     tr+="<td><a href='#' onclick='onUpdateAPK(\""+item.url+"\")'>升级</a></td></tr>";
@@ -680,6 +718,8 @@ function downloadDeviceFile(type) {
 
     console.log(" device id :"+client_id +" value :"+JSON.stringify(data));
     sendMqttMessage(client_id, JSON.stringify(data));
+
+    layer.alert("加载中，请稍后!");
 
 }
 function downloadData() {
@@ -791,9 +831,11 @@ function setSelect(view, value)
     $(id).find(option).attr("selected","selected");
 }
 
-
+var  settingFlag= false;
 function updateSettting(data)
 {
+
+    settingFlag= true;
 
     //方向
     $("#set_deriction").val(data.direction);
@@ -834,20 +876,20 @@ function updateSettting(data)
 
 
     //网络自动校准时间
-    if(data.autoTime){
-        dijit.byId("set_date").disabled = true;
-        dijit.byId("set_time").disabled = true;
-    }else{
-        dijit.byId("set_date").disabled = false;
-        dijit.byId("set_time").disabled = false;
-    }
+    // if(data.autoTime){
+    //     dijit.byId("set_date").disabled = true;
+    //     dijit.byId("set_time").disabled = true;
+    // }else{
+    //     dijit.byId("set_date").disabled = false;
+    //     dijit.byId("set_time").disabled = false;
+    // }
     /*dijit.byId('set_autotime').attr('checked',!data.autoTime);*/
 
     $("#set_welcome").html ( data.welcome);
 
-    $("#set_device_id").html("设备ID:"+data.app_id);
+    //$("#set_device_id").html("设备ID:"+data.app_id　);
 
-    $("#set_version").html("软件版本号:"+ mapVersion[data.app_id] +"    "+mapSystemVersion[data.app_id]);
+    $("#set_version").html( data.app_id);
 
 
 
@@ -863,9 +905,20 @@ function saveSetting()
         layer.alert("请选择一个设备!");
         return;
     }
+
+
+    if (settingFlag == false){
+        layer.alert("请先加载设置!");
+        return;
+    }
+    
+    
+    
     Device_ID = list[0];
 
 
+    
+    
     var date = new Date();
     var datestr = $("#set_date").val();
 
@@ -920,6 +973,8 @@ function saveSetting()
 
 	console.log("save settting :"+JSON.stringify(data));
     sendMqttMessage(Device_ID, JSON.stringify(data));
+
+    layer.alert("保存设置，请稍后!");
 
 }
 
